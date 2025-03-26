@@ -47,6 +47,32 @@ ZLMEDIAKIT_LIBRARIES=/path/to/your/libraries zig build
 
 如果未设置环境变量，将使用项目内置的库(根据目标平台自动选择)。
 
+
+### 指定平台和架构
+
+在构建时，可以指定目标平台和架构：
+
+```bash
+# Linux + x86_64 (默认)
+zig build -Dtarget=x86_64-linux-gnu -Doptimize=ReleaseSafe
+# windows + x86_64 (mingw)
+zig build -Dtarget=x86_64-windows-gnu
+# Linux + aarch64
+zig build -Dtarget=aarch64-linux-gnu
+# Linux + armhf 32bit
+zig build -Dtarget=arm-linux-gnueabihf
+# Linux + riscv64-linux-gnu
+zig build -Dtarget=riscv64-linux-gnu
+# Android + arm64-v8a
+zig build -Dtarget=aarch64-linux-android
+# Android + armeabi-v7a 32bit
+zig build -Dtarget=arm-linux-androi
+# macos
+zig build -Dtarget=x86_64-macos
+zig build -Dtarget=aarch64-macos
+
+```
+
 ## 使用方法
 
 ### Zig高级封装API
@@ -112,7 +138,7 @@ pub fn main() !void {
 
 ```bash
 # 编译server示例
-zig build --target=x86_64-linux-gnu 
+zig build -Dtarget=x86_64-linux-gnu 
 
 # 运行server示例
 LD_LIBRARY_PATH=runtime/lib/x86_64-linux-gnu ./zig-out/bin/server
