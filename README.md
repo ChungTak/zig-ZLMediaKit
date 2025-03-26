@@ -22,7 +22,7 @@
 
 ```bash
 # 添加依赖到你的项目
-zig fetch --save https://github.com/yourname/zig-ZLMediaKit/archive/refs/tags/vX.Y.Z.tar.gz
+zig fetch --save git+https://github.com/ChungTak/zig-ZLMediaKit
 ```
 
 或者在你的`build.zig.zon`中手动添加依赖:
@@ -30,7 +30,7 @@ zig fetch --save https://github.com/yourname/zig-ZLMediaKit/archive/refs/tags/vX
 ```zig
 .dependencies = .{
     .zig_ZLMediaKit = .{
-        .url = "https://github.com/yourname/zig-ZLMediaKit/archive/refs/tags/vX.Y.Z.tar.gz",
+        .url = "git+https://github.com/ChungTak/zig-ZLMediaKit",
         .hash = "...", // 使用zig fetch获取正确的hash
     },
 },
