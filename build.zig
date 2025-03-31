@@ -1,10 +1,5 @@
 const std = @import("std");
 
-// 获取库文件路径
-fn getLibPath(target_str: []const u8) ![]const u8 {
-    return try std.fmt.allocPrint(std.heap.page_allocator, "runtime/lib/{s}", .{target_str});
-}
-
 // 创建ZLMEDIAKIT库模块
 fn createZLMediakitModule(
     b: *std.Build,
@@ -101,11 +96,9 @@ pub fn build(b: *std.Build) void {
     // 获取ZLMEDIAKIT库路径ZLMEDIAKIT_LIBRARIES环境变量
     const zlmediakit_lib = std.process.getEnvVarOwned(std.heap.page_allocator, "ZLMEDIAKIT_LIBRARIES") catch null;
 
-    // 本地链接库路径
-    const lib_path = getLibPath(target_str) catch |err| {
-        std.debug.print("Error: {s}. lib path not found.\n", .{@errorName(err)});
-        return;
-    };
+    // 获取库文件路径
+    const lib_path = std.fmt.allocPrint(std.heap.page_allocator, "runtime/lib/{s}", .{target_str}) catch unreachable;
+
     // 确定库路径：优先使用使用环境变量
     const final_lib_path = if (zlmediakit_lib) |env_dir| env_dir else lib_path;
     const final_include_path = "runtime/include";

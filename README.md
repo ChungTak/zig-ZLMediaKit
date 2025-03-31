@@ -18,7 +18,7 @@
 
 ## 安装
 
-通过Zig包管理器安装:
+在您的项目中使用以下命令添加依赖：
 
 ```bash
 # 添加依赖到你的项目
@@ -34,6 +34,40 @@ zig fetch --save git+https://github.com/ChungTak/zig-ZLMediaKit
         .hash = "...", // 使用zig fetch获取正确的hash
     },
 },
+```
+
+然后在你的 `build.zig` 中添加依赖：
+
+```zig
+const zlmediakit_dep = b.dependency("zlmediakit", .{});
+exe.addModule("zlmediakit", zlmediakit_dep.module("zlmediakit"));
+```
+
+
+### 方法二：手动安装
+
+1. 克隆仓库：
+
+1. 克隆此仓库到项目路径.deps目录下：
+```bash
+mkdir -p .deps && cd .deps
+git clone https://github.com/ChungTak/zig-ZLMediaKit.git
+```
+
+2. 然后在你的 `build.zig.zon` 中添加本地路径(不能是绝对路径)：
+```zig
+    .dependencies = .{
+        .rknpu2 = .{
+            .path = ".deps/zig-ZLMediaKit",
+        },
+    },
+```
+
+然后在你的 `build.zig` 中添加依赖：
+
+```zig
+const zlmediakit_dep = b.dependency("zlmediakit", .{});
+exe.addModule("zlmediakit", zlmediakit_dep.module("zlmediakit"));
 ```
 
 ## 编译
